@@ -1,6 +1,7 @@
 // main.ino
 // Intégration de l'asservissement avec le port série
 // Commandes : avance <mm>  |  tourne <deg>  |  stop
+// test odo
 
 #include "encodeurs.h"
 #include "Moteur.h"
