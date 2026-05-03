@@ -10,11 +10,11 @@ bool nouveau_message = false;
 static void traiter_message() {
   char com[16];
   int para1, para2;
-  if (sscanf(buffer, "%15s %f %f", com, &para1, &para2) == 3) {
+  if (sscanf(buffer, "%15s %d %d", com, &para1, &para2) == 3) {
     strncpy(p.com, com, sizeof(p.com) - 1);
     p.com[sizeof(p.com) - 1] = '\0';
-    p.para1 = para1;
-    p.para2 = para2;
+    p.para1 = (int16_t)para1;
+    p.para2 = (int16_t)para2;
     nouveau_message = true;   // <--
   } else {
     Serial.println("Format invalide. Exemple : avance 100 200");
