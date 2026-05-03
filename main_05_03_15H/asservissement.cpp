@@ -17,9 +17,9 @@
 // ──────────────────────────────────────────────
 //  Paramètres PID  (à calibrer)
 // ──────────────────────────────────────────────
-float KP_DIST = 2.0f;
+float KP_DIST = 0.5f;
 float KI_DIST = 0.0f;    // commence à 0, augmenter si erreur statique
-float KD_DIST = 1.0f;
+float KD_DIST = 0.3f;
 
 float KP_ANG  = 2.5f;
 float KI_ANG  = 0.0f;
@@ -43,8 +43,9 @@ float SEUIL_ANG_MM  = 3.0f;
 // ──────────────────────────────────────────────
 //  Modification de paramètres via port série
 // ──────────────────────────────────────────────
-void asserv_modifier_param(float val1, float valeur) {
+void asserv_modifier_param(float val1, float valeu) {
   int index = int(val1);
+  float valeur=valeu/10;
   switch (index) {
     case 1:  KP_DIST       = valeur; break;
     case 2:  KI_DIST       = valeur; break;
