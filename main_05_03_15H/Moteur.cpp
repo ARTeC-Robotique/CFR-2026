@@ -22,26 +22,32 @@ void moteur_init() {
 // === Commande d'un seul moteur ===
 // mot : 1 (gauche) ou 2 (droit)
 // vitesse : [-255, 255]
+float coefficientCorrectifD=1;
+float coefficientCorrectifG=0.95;
 void moteur_set(int mot, float vitesse) {
   int PWM = constrain(round(vitesse), -255, 255);
-
+  float coefficientCorrectif;
   int pinA = 0, pinB = 0;
-  if (mot == 2) { pinA = M1A; pinB = M1B; }
-  else if (mot == 1) { pinA = M2A; pinB = M2B; }
+  if (mot == 2) { pinA = M1A; pinB = M1B; coefficientCorrectif=coefficientCorrectifD; }
+  else if (mot == 1) { pinA = M2A; pinB = M2B; coefficientCorrectif=coefficientCorrectifG; }
   else return; // moteur invalide
 
   if (PWM > 0) {
-    analogWrite(pinA, PWM);
+    analogWrite(pinA, int(PWM*coefficientCorrectif));
     analogWrite(pinB, 0);
   } else if (PWM < 0) {
     analogWrite(pinA, 0);
-    analogWrite(pinB, -PWM);
+    analogWrite(pinB, -int(PWM*coefficientCorrectif));
   } else {
     analogWrite(pinA, 0);
     analogWrite(pinB, 0);
   }
 }
-
+/*
+void moteur_debuggage(float gauche, float droite){
+  moteur_set(1, gauche/coefficientCorrectifG);
+  moteur_set(2, droite/coefficientCorrectifD);
+}*/
 
 
 // === Arrêt d’urgence ===
